@@ -1,27 +1,22 @@
 //Aziz Önder
-//THE PONG GAME
+//I LOVE ESY
+//22.03.2025
 
 #include <Arduino.h>
 
 void switchLED(int r, int c, bool ON);
 void clearDisplay();
-void drawPaddle(int pos);
-void moveBall();
-void refreshDisplay();
 
-#define JOY_X A4 // X-Achse des Joysticks
-#define JOY_Y A5 // Y-Achse des Joysticks
-
-#define R0 5 // pin for row 0
-#define R1 A1 // pin for row 1
+#define R0 5 
+#define R1 A1 
 #define R2 13 
 #define R3 2
 #define R4 6
 #define R5 12
 #define R6 7
 #define R7 10
-#define C0 A0 // pin for column 0
-#define C1 8 // pin for column 1
+#define C0 A0 
+#define C1 8
 #define C2 9 
 #define C3 4
 #define C4 11
@@ -29,84 +24,130 @@ void refreshDisplay();
 #define C6 A2
 #define C7 A3
 
-int row[] = {R0, R1, R2, R3, R4, R5, R6, R7};
-int column[] = {C0, C1, C2, C3, C4, C5, C6, C7};
 
-int paddlePos = 3; // Startposition des Schlägers
-int ballX = 3, ballY = 3; // Startposition des Balls
-int ballDirX = 1, ballDirY = 1; // Bewegungsrichtung des Balls
+int R[] = {5,A1,13,2,6,12,7,10};  
+int C[] = {A0,8,9,4,11,3,A2,A3}; 
 
-bool ledMatrix[8][8] = {false};
 
-void setup() {
-  pinMode(JOY_X, INPUT);
-  pinMode(JOY_Y, INPUT);
   
-  for (int i = 0; i < 8; i++) {
-    pinMode(row[i], OUTPUT);
-    digitalWrite(row[i], HIGH);
-  }
-  for (int i = 0; i < 8; i++) {
-    pinMode(column[i], OUTPUT);
-    digitalWrite(column[i], LOW);
-  }
-  clearDisplay();
+unsigned char I[8][8] =      //Das "I"
+{  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+};  
+
+unsigned char Herz[8][8] =     //Das Herz  
+{  
+  0,0,0,0,0,0,0,0,  
+  0,1,1,0,0,1,1,0,  
+  1,1,1,1,1,1,1,1,  
+  1,1,1,1,1,1,1,1,  
+  1,1,1,1,1,1,1,1,  
+  0,1,1,1,1,1,1,0,  
+  0,0,1,1,1,1,0,0,  
+  0,0,0,1,1,0,0,0,  
+};  
+
+unsigned char E[8][8] =      //Das "E"
+{  
+  1,1,1,1,1,1,1,1,  
+  1,1,1,1,1,1,1,1,  
+  1,1,0,0,0,0,0,0,  
+  1,1,1,1,1,1,1,1,  
+  1,1,1,1,1,1,1,1,  
+  1,1,0,0,0,0,0,0,  
+  1,1,1,1,1,1,1,1,  
+  1,1,1,1,1,1,1,1,  
+};  
+
+unsigned char S[8][8] =      //Das "S"
+{  
+  0,0,0,1,1,0,0,0,  
+  0,0,1,0,0,1,0,0,  
+  0,0,1,0,0,0,0,0,  
+  0,0,0,1,0,0,0,0,  
+  0,0,0,0,1,0,0,0,  
+  0,0,0,0,0,1,0,0,  
+  0,0,1,0,0,1,0,0,  
+  0,0,0,1,1,0,0,0,  
+};  
+
+unsigned char Y[8][8] =      //Das "Y"
+{  
+  1,1,0,0,0,0,1,1,  
+  0,1,1,0,0,1,1,0,  
+  0,0,1,1,1,1,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+  0,0,0,1,1,0,0,0,  
+};  
+void Clear()                 //Alle LEDS ausschalten
+{  
+  for(int i = 0;i<8;i++)  
+  {  
+    digitalWrite(R[i],LOW);  
+    digitalWrite(C[i],HIGH);  
+  }  
 }
 
-void loop() {
-  int joyValue = analogRead(JOY_X);
-  if (joyValue < 400 && paddlePos > 0) paddlePos--; // Links bewegen
-  if (joyValue > 600 && paddlePos < 5) paddlePos++; // Rechts bewegen 
+void Display(unsigned char dat[8][8])    
+{  
+  for(int c = 0; c<8;c++)  
+  {  
+    digitalWrite(C[c],LOW);             //Die Spalten werden ausgeschalten
+   
+    for(int r = 0;r<8;r++)  
+    {  
+      digitalWrite(R[r],dat[r][c]);     //Das Muster wird auf die Reihe "übertragen"
+    }  
+    delay(1);  
+    Clear();  //Alle LEDS auschalten
+  }  
+}  
+void setup()  
+{  
+   
+  for(int i = 0;i<8;i++)  
   
-  clearDisplay();
-  drawPaddle(paddlePos);
-  moveBall();
-  refreshDisplay();
-  delay(100); // Geschwindigkeit anpassen
-}
+  {  
+  //Alle Pins als OUTPUT definieren
 
-void clearDisplay() {
-  for (int i = 0; i < 8; i++) {
-    for (int j = 0; j < 8; j++) {
-      ledMatrix[i][j] = false;
-    }
-  }
-}
-
-void switchLED(int r, int c, bool ON) {
-  ledMatrix[r][c] = ON;
-}
-
-void drawPaddle(int pos) {
-  switchLED(7, pos, true);
-  switchLED(7, pos + 1, true);
-}
-
-void moveBall() {
-  switchLED(ballY, ballX, true);
+    pinMode(R[i],OUTPUT);  
+    pinMode(C[i],OUTPUT);  
+  }  
+}  
   
-  ballX += ballDirX;
-  ballY += ballDirY;
-  
-  if (ballX <= 0 || ballX >= 7) ballDirX = -ballDirX;
-  if (ballY <= 0) ballDirY = -ballDirY;
-  if (ballY == 6 && (ballX == paddlePos || ballX == paddlePos + 1)) ballDirY = -ballDirY; 
-  
-  if (ballY >= 7) {
-    ballX = 3;
-    ballY = 3;
-    ballDirX = 1;
-    ballDirY = 1;
+void loop()  
+{  
+  for(int i = 0 ; i < 150 ; i++)         //Definiert wie lange der jeweilige Buchstabe angezeigt wird
+  {     
+    Display(I);                 //Das I anzeigen
   }
-}
+  for(int i = 0 ; i < 150 ; i++)        //Definiert wie lange der jeweilige Buchstabe angezeigt wird
+  {  
+    Display(Herz);                   //Das Herz anzeigen
+  }  
+  for(int i = 0 ; i < 150 ; i++)         //Definiert wie lange der jeweilige Buchstabe angezeigt wird
+  {     
+    Display(E);                 //Das E anzeigen
+  } 
+  for(int i = 0 ; i < 150 ; i++)         //Definiert wie lange der jeweilige Buchstabe angezeigt wird
+  {     
+    Display(S);                 //Das S anzeigen
+  }  
+  for(int i = 0 ; i < 150 ; i++)         //Definiert wie lange der jeweilige Buchstabe angezeigt wird
+  {     
+    Display(Y);                 //Das Y anzeigen
+  }  
+}  
+  
 
-void refreshDisplay() {
-  for (int i = 0; i < 8; i++) {
-    digitalWrite(row[i], HIGH);
-    for (int j = 0; j < 8; j++) {
-      digitalWrite(column[j], ledMatrix[i][j] ? LOW : HIGH);
-    }
-    digitalWrite(row[i], LOW);
-    delay(2); 
-  }
-}
+  
