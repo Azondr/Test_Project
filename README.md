@@ -6,8 +6,9 @@ Mein Projekt benutzt eine 8x8 Matrix vom Arduino Kit und wird mit 16 Kabeln und 
 
 ![Flussdiagramm](https://github.com/user-attachments/assets/6aeaf92a-b068-44a8-accd-6fe6ac8115fb)
 
-##Schaltplan
+## Schaltplan
 
+![5b50fe7e-d13f-4d53-a988-40830cd58005](https://github.com/user-attachments/assets/5888c2d5-422a-49e3-81e6-0b7faa4dd40b)
 
 
 ## Bild des Projekts
@@ -23,5 +24,9 @@ Liste aller Materialien die in dem Projekt benutzt wurden.
 -8x 470 Ohm Widerstände <br/>
 -Breadbord <br/>
 -Drähte <br/>
--Arduino Uno & Kabel
+-Arduino Uno & Kabel  <br/>
+
+## Learnings
+
+Für mich war alles herausfordernt, die ganze 8x8 Matrix war komplett verwirrend für mich und wie man sie generell programmiert, und weil auch alle datenblätter dazu so komisch sind hatte ich damit ziemlich schwiriegkeiten damit die PINs richtig zu verbinden. Aber jetzt denke ich verstehe ich das meiste oder sogar alles von der Matrix.
 
