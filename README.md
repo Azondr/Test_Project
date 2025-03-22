@@ -3,8 +3,8 @@ Mein Projekt benutzt eine 8x8 Matrix vom Arduino Kit und wird mit 16 Kabeln und 
 
 ## Flussdiagramm
 
-![Flussdiagramm 1](Pics/Flussdiagramm_1.jpeg)
-![Flussdiagramm 2](Pics/Flussdiagramm_2.jpeg)
+![Uploading Flussdiagramm.jpeg…]()
+
 
 ## Bild des Projekts
 
