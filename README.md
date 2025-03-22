@@ -6,10 +6,14 @@ Mein Projekt benutzt eine 8x8 Matrix vom Arduino Kit und wird mit 16 Kabeln und 
 
 ![Flussdiagramm](https://github.com/user-attachments/assets/6aeaf92a-b068-44a8-accd-6fe6ac8115fb)
 
+##Schaltplan
+
+
 
 ## Bild des Projekts
 
-![Projekt](Pics/Projekt.jpeg)
+![6386d97b-32f8-4519-91e2-55e985854116](https://github.com/user-attachments/assets/7705a2b9-c4de-4305-a6dd-8df5ed10784d)
+
 
 ## MaterialListe
 
@@ -19,5 +23,5 @@ Liste aller Materialien die in dem Projekt benutzt wurden.
 -8x 470 Ohm Widerstände <br/>
 -Breadbord <br/>
 -Drähte <br/>
--2x Joysticks <br/>
+-Arduino Uno & Kabel
 
